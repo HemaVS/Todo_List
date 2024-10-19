@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Your Tasks</h2>
+<table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
+    <thead>
+        <tr>
+            <th style="border: 1px solid #ddd; padding: 8px;">Task Name</th>
+            <th style="border: 1px solid #ddd; padding: 8px;">Description</th>
+            <th style="border: 1px solid #ddd; padding: 8px;">Actions</th>
+            <th style="border: 1px solid #ddd; padding: 8px;">Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for task in tasks %}
+        <tr>
+            <td style="border: 1px solid #ddd; padding: 8px;">{{ task.title }}</td>
+            <td style="border: 1px solid #ddd; padding: 8px;">{{ task.description }}</td>
+            <td style="border: 1px solid #ddd; padding: 8px;">
+                <a href="{% url 'task_update' task.pk %}">Edit</a>
+                <a href="{% url 'task_delete' task.pk %}">Delete</a>
+            </td>
+            <td style="border: 1px solid #ddd; padding: 8px;">
+            {% if task.completed %}
+                Completed
+            {% else %}
+                In Progress
+            {% endif %}
+        </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<a href="{% url 'task_create' %}"><button style="margin-top: 20px;">Create New Task</button></a>
+{% endblock %}
